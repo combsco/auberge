@@ -8,7 +8,7 @@
 - [Background](#background)
 - [Install](#install)
 - [FAQ](#FAQ)
-- [Contributing](#contributing).
+- [Contributing](#contributing)
 - [License](#license)
 
 ## Background
