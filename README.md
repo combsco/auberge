@@ -1,7 +1,7 @@
-## Auberge
+## Auberge (API-only)
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
-> Auberge is an API-only hotel management and booking system.
+> Auberge is a hotel management and booking system.
 
 ## Table of Contents
 
@@ -24,7 +24,13 @@
 #### Do you work in the Hospitality industry or even a hotel?
 I do not. So if you see something out of place or if you have insight to give please open an issue, love to hear from you.
 
-#### Why are the API and front-end of the Auberge split?
+#### Where's the front-end?
+It's not developed yet. However, feel free to create your own.
+
+#### Will this API have documentation on it's endpoints?
+Yes, but still pondering on which spec to use. (RAML, Blueprint, Swagger)
+
+#### Why is the API and the front-end of the Auberge split?
 Enforces separation of concerns, abstracts complexity and allows flexibility overall. Enables you to use our front-end, bring your own front-end, desktop application, mobile application and other adapters. Gives the ability to scale the API to better infrastructure without disrupting other components. However, this all comes with some cons: Independent testing, build and deployment, and needing to know different technologies/languages to contribute.
 
 #### Will a new API/front-end version or vice-versa break the system?
@@ -47,7 +53,13 @@ I would deploy the API to a server either bare bone or with docker.
 #### Why not use Phoenix?
 Short answer, cause I don't want to. I understand that frameworks such as Phoenix, Ruby on Rails, Django and others, fit so many use cases that we all might as well harness the power and use them. My problem with this is many developers use these frameworks without even having knowledge of the language itself. So Auberge is a learning expedition for me to get better acquainted with Elixir/Erlang and other technologies without a handicap.
 
+## Contribute
+
+Feel free to dive in! [Open an issue](https://github.com/combsco/auberge/issues/new) or submit PRs.
+
+Auberge follows the [Contributor Covenant](http://contributor-covenant.org/version/1/3/0/) Code of Conduct.
+
 ## License
 BSD-3-Clause © 2017 Christopher Combs
 
-See LICENSE.md for full text.
+See LICENSE file for full text.
