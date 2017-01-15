@@ -10,30 +10,19 @@ defmodule Auberge.Mixfile do
      deps: deps()]
   end
 
-  # Configuration for the OTP application
-  #
-  # Type "mix help compile.app" for more information
   def application do
-    # Specify extra applications you'll use from Erlang/Elixir
     [extra_applications: [:logger, :maru, :postgrex, :ecto, :corsica]]
   end
 
-  # Dependencies can be Hex packages:
-  #
-  #   {:my_dep, "~> 0.3.0"}
-  #
-  # Or git/path repositories:
-  #
-  #   {:my_dep, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
-  #
-  # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:postgrex, ">= 0.0.0"},
-      {:ecto, "~> 2.0.0"},
-      {:maru, "~> 0.11"},
-      {:corsica, "~> 0.5"},
-      {:credo, "~> 0.5", only: [:dev, :test]}
+      {:postgrex, ">= 0.0.0"},                  # PostgreSQL Driver
+      {:ecto, "~> 2.0.0"},                      # ORM
+      {:maru, "~> 0.11"},                       # API Framework
+      {:corsica, "~> 0.5"},                     # CORS
+      {:credo, "~> 0.5", only: [:dev, :test]},  # Code Analysis
+      {:distillery, "~> 1.0"},                  # Release Management
+      {:changex, ">= 0.0.0"}                    # Automated Changelog
     ]
   end
 end
