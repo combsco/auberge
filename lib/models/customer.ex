@@ -10,10 +10,11 @@ defmodule Auberge.Customer do
     field :email
 
     timestamps()
+    field :deleted_at, Ecto.DateTime
   end
 
   @required_params ~w(first_name last_name)
-  @optional_params ~w(phone_num email)
+  @optional_params ~w(phone_num email deleted_at)
 
   def changeset(customer, params \\ :empty) do
     customer
