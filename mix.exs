@@ -3,7 +3,7 @@ defmodule Auberge.Mixfile do
 
   def project do
     [app: :auberge,
-     version: "0.1.0",
+     version: "17.1.0",
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -11,7 +11,8 @@ defmodule Auberge.Mixfile do
   end
 
   def application do
-    [extra_applications: [:logger, :maru, :postgrex, :ecto, :corsica]]
+    [extra_applications: [:logger, :maru, :postgrex, :ecto, :corsica],
+     mod: {Auberge.Application, []}]
   end
 
   defp deps do
