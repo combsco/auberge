@@ -1,4 +1,5 @@
-defmodule Customer do
+defmodule Auberge.Customer do
+  @moduledoc false
   use Ecto.Schema
 
   schema "customers" do
@@ -6,6 +7,17 @@ defmodule Customer do
     field :last_name, :string
     field :phone_num
     field :email
-    timestamps
+
+    timestamps()
+  end
+end
+
+defimpl Poison.Encoder, for: Auberge.Customer do
+  @attributes ~w(id first_name last_name phone_num email)a
+
+  def encode(customer, options) do
+    customer
+    |> Map.take(@attributes)
+    |> Poison.Encoder.encode(options)
   end
 end

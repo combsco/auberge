@@ -1,4 +1,5 @@
 defmodule Auberge.API do
+  @moduledoc false
   use Maru.Router
 
   before do
