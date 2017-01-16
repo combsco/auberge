@@ -24,7 +24,7 @@ defmodule Auberge.API do
     |> text("Not Implemented")
   end
 
-  rescue_from Maru.Exceptions.InvalidFormatter, as: e do
+  rescue_from Maru.Exceptions.InvalidFormat, as: e do
     conn
     |> put_status(400)
     |> json(%{:error => "Invalid Request",

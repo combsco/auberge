@@ -10,6 +10,7 @@ defmodule Auberge.API.V1.Customers do
   alias Auberge.Customer
 
   resource :customers do
+
     desc "Retrieve a customer's profile."
     params do
       requires :customer_id, type: Integer
@@ -21,6 +22,30 @@ defmodule Auberge.API.V1.Customers do
         json(conn, customer)
       else
         put_status(conn, 404)
+      end
+    end
+
+    desc "Create a new customer"
+    params do
+      requires :first_name, type: String
+      requires :last_name, type: String
+      optional :phone_num, type: String
+      optional :email, type: String
+    end
+    post do
+      changeset = Customer.changeset(%Customer{}, params)
+
+      case Repo.insert(changeset) do
+        {:ok, customer} ->
+          conn
+          |> put_status(201)
+          |> json(customer)
+        {:error, changeset} ->
+          errors = Ecto.Changeset.traverse_errors(changeset, fn msg -> msg end)
+          conn
+          |> put_status(400)
+          |> json(%{:error => "Error Creating",
+                    :error_description => errors})
       end
     end
   end
