@@ -1,5 +1,5 @@
 ## Auberge (API-only)
-[![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
+[![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme) [![calver](https://img.shields.io/badge/calver-YY.MINOR.MICRO-22bfda.svg?style=flat-square)](http://calver.org)
 
 > Auberge is a hotel management and booking system.
 
