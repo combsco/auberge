@@ -25,7 +25,7 @@ defmodule Auberge.API.V1.Customers do
       end
     end
 
-    desc "Create a new customer"
+    desc "Create a new customer."
     params do
       requires :first_name, type: String
       requires :last_name, type: String
@@ -48,5 +48,37 @@ defmodule Auberge.API.V1.Customers do
                     :error_description => errors})
       end
     end
+
+    desc "Update an existing customer."
+    params do
+      requires :customer_id, type: Integer
+      optional :first_name, type: String
+      optional :last_name, type: String
+      optional :phone_num, type: String
+      optional :email, type: String
+    end
+    patch ":customer_id" do
+      customer_id = params[:customer_id]
+      customer = Repo.one(from c in Customer, where: c.id == ^customer_id)
+      changeset = Customer.changeset(customer, params)
+      IO.inspect changeset
+      case Repo.update(changeset) do
+        {:ok, customer} ->
+          conn
+          |> put_status(200)
+          |> json(customer)
+        {:error, changeset} ->
+          errors = Ecto.Changeset.traverse_errors(changeset, fn msg -> msg end)
+          conn
+          |> put_status(400)
+          |> json(%{:error => "Error Updating",
+                    :error_description => errors})
+      end
+    end
+
+    # delete do
+    #
+    # end
+    # search
   end
 end
