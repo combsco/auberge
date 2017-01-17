@@ -4,6 +4,6 @@ defmodule Auberge.API.V1 do
 
   version "v1"
 
-  mount Auberge.API.V1.Hello
   mount Auberge.API.V1.Customers
+  mount Auberge.API.V1.Properties
 end
