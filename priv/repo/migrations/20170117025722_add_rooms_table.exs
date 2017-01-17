@@ -1,7 +1,7 @@
 defmodule Auberge.Repo.Migrations.AddRoomsTable do
   use Ecto.Migration
 
-  def up do
+  def change do
     create table(:rooms) do
       add :property_id, references(:properties)
       add :room_num, :string, size: 15
@@ -11,9 +11,7 @@ defmodule Auberge.Repo.Migrations.AddRoomsTable do
       timestamps()
       add :deleted_at, :datetime
     end
-  end
 
-  def down do
-    drop table(:rooms)
+    create index(:rooms, [:property_id, :room_num, :floor_num, :room_type_id], unique: true)
   end
 end

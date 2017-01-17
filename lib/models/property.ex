@@ -4,7 +4,7 @@ defmodule Auberge.Property do
   import Ecto.Changeset
 
   schema "properties" do
-    field :property_name, :string         # Ovalii Hotel & Suites
+    field :name, :string         # Ovalii Hotel & Suites
     embeds_one :address, Auberge.Address
 
     timestamps()
@@ -14,7 +14,7 @@ defmodule Auberge.Property do
 
     def changeset(property, params \\ :empty) do
       property
-      |> cast(params, [:property_name])
+      |> cast(params, [:name])
       |> cast_embed(:address, with: &Auberge.Address.changeset/2)
     end
   end

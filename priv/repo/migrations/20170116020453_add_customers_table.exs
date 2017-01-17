@@ -1,7 +1,7 @@
 defmodule Auberge.Repo.Migrations.AddCustomersTable do
   use Ecto.Migration
 
-  def up do
+  def change do
     create table(:customers) do
       add :first_name, :string, size: 30
       add :last_name, :string, size: 30
@@ -12,9 +12,5 @@ defmodule Auberge.Repo.Migrations.AddCustomersTable do
       timestamps()
       add :deleted_at, :datetime
     end
-  end
-
-  def down do
-    drop table(:customers)
   end
 end

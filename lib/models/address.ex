@@ -20,5 +20,3 @@ defmodule Auberge.Address do
     |> cast(params, @required_params, @optional_params)
   end
 end
-
-# changeset = Property.changeset(%Property{}, %{property_name: "Ovalii Hotel & Suites", address: %{throughfare: "284 Race Avenue", locality: "East Stroudsburg", administrative_area: "PA", country: "US", postal_code: "18301"}})
