@@ -23,7 +23,8 @@ defmodule Auberge.Mixfile do
       {:corsica, "~> 0.5"},                     # CORS
       {:credo, "~> 0.5", only: [:dev, :test]},  # Code Analysis
       {:distillery, "~> 1.0"},                  # Release Management
-      {:changex, ">= 0.0.0"}                    # Automated Changelog
+      {:changex, ">= 0.0.0"},                   # Automated Changelog
+      {:exsync, "~> 0.1", only: :dev}
     ]
   end
 end

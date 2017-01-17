@@ -109,6 +109,6 @@ defmodule Auberge.API.V1.Customers do
         put_status(conn, 404)
       end
     end
-    # search
+    # search, build up query based on if params were given
   end
 end
