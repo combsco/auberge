@@ -7,7 +7,14 @@ defmodule Auberge.Repo.Migrations.AddCustomersTable do
       add :last_name, :string, size: 30
       add :phone_num, :string, size: 15
       add :email, :string, size: 254
-      timestamps
+      add :address, :map
+
+      timestamps()
+      add :deleted_at, :datetime
     end
+  end
+
+  def down do
+    drop table(:customers)
   end
 end
