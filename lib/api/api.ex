@@ -31,6 +31,13 @@ defmodule Auberge.API do
               :error_description => "Invalid or missing #{e.param} parameter"})
   end
 
+  # rescue_from Maru.Exceptions.Validation, as: e do
+  #   conn
+  #   |> put_status(400)
+  #   |> json(%{:error => "Invalid Request",
+  #             :error_description => "Invalid or missing #{e.param} parameter"})
+  # end
+
   rescue_from :all, as: e do
     IO.inspect(e) # Remove in Prod?
     conn

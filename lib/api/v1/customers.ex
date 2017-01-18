@@ -32,6 +32,7 @@ defmodule Auberge.API.V1.Customers do
       requires :last_name, type: String
       optional :phone_num, type: String
       optional :email, type: String
+      at_least_one_of [:phone_num, :email]
     end
     post do
       changeset = Customer.changeset(%Customer{}, params)
@@ -57,6 +58,7 @@ defmodule Auberge.API.V1.Customers do
       optional :last_name, type: String
       optional :phone_num, type: String
       optional :email, type: String
+      at_least_one_of [:first_name, :last_name, :phone_num, :email]
     end
     patch ":customer_id" do
       customer_id = params[:customer_id]
