@@ -1,6 +1,6 @@
 defmodule Auberge.Room do
   @moduledoc false
-  use Ecto.Schema
+  use Auberge.Schema
   import Ecto.Changeset
 
   schema "rooms" do
@@ -8,7 +8,7 @@ defmodule Auberge.Room do
     field :floor_num, :integer          # 7
 
     timestamps()
-    field :deleted_at, Ecto.DateTime
+    field :deleted_at, :utc_datetime
 
     belongs_to :property, Auberge.Property
     belongs_to :room_type, Auberge.RoomType

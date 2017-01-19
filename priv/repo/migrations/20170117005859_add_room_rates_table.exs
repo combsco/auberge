@@ -18,7 +18,7 @@ defmodule Auberge.Repo.Migrations.AddRoomRatesTable do
       add :price, :float, default: 1.00
 
       timestamps()
-      add :deleted_at, :datetime
+      add :deleted_at, :utc_datetime
     end
 
     create index(:room_rates, [:code], unique: true)

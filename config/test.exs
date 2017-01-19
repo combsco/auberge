@@ -7,7 +7,7 @@ config :logger, level: :info
 config :auberge, ecto_repos: [Auberge.Repo]
 config :auberge, Auberge.Repo,
   adapter: Ecto.Adapters.Postgres,
-  database: "auberge",
+  database: "auberge_test",
   username: "postgres",
   password: "",
   hostname: "lvh.me"

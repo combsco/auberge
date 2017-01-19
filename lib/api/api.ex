@@ -1,10 +1,12 @@
 defmodule Auberge.API do
   @moduledoc false
   use Maru.Router
+  require Logger
 
   before do
     plug Plug.Logger, log: :debug
-    plug Corsica, max_age: 600, origins: "*", allow_headers: ["accept", "content-type", "origin", "authorization"]
+    plug Corsica, max_age: 600, origins: "*",
+         allow_headers: ["accept", "content-type", "origin", "authorization"]
   end
 
   plug Plug.Parsers,
@@ -39,7 +41,8 @@ defmodule Auberge.API do
   # end
 
   rescue_from :all, as: e do
-    IO.inspect(e) # Remove in Prod?
+    Logger.warn("API Error Occurred")
+    Logger.debug(inspect(e))
     conn
     |> put_status(500)
     |> text("Internal Server Error")

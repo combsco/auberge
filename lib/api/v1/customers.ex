@@ -6,6 +6,7 @@ defmodule Auberge.API.V1.Customers do
   """
   use Maru.Router
   import Ecto.Query, only: [from: 2]
+  alias Ecto.Changeset
   alias Auberge.Repo
   alias Auberge.Customer
 
@@ -17,7 +18,8 @@ defmodule Auberge.API.V1.Customers do
     end
     get ":customer_id" do
       customer_id = params[:customer_id]
-      customer = Repo.one(from c in Customer, where: is_nil(c.deleted_at) and c.id == ^customer_id)
+      customer = Repo.one(from c in Customer,
+                          where: is_nil(c.deleted_at) and c.id == ^customer_id)
 
       if customer do
         json(conn, customer)
@@ -43,7 +45,7 @@ defmodule Auberge.API.V1.Customers do
           |> put_status(201)
           |> json(customer)
         {:error, changeset} ->
-          errors = Ecto.Changeset.traverse_errors(changeset, fn msg -> msg end)
+          errors = Changeset.traverse_errors(changeset, fn msg -> msg end)
           conn
           |> put_status(400)
           |> json(%{:error => "Error Creating",
@@ -62,7 +64,8 @@ defmodule Auberge.API.V1.Customers do
     end
     patch ":customer_id" do
       customer_id = params[:customer_id]
-      customer = Repo.one(from c in Customer, where: is_nil(c.deleted_at) and c.id == ^customer_id)
+      customer = Repo.one(from c in Customer,
+                          where: is_nil(c.deleted_at) and c.id == ^customer_id)
 
       if customer do
         changeset = Customer.changeset(customer, params)
@@ -73,7 +76,7 @@ defmodule Auberge.API.V1.Customers do
             |> put_status(200)
             |> json(customer)
           {:error, changeset} ->
-            errors = Ecto.Changeset.traverse_errors(changeset, fn msg -> msg end)
+            errors = Changeset.traverse_errors(changeset, fn msg -> msg end)
             conn
             |> put_status(400)
             |> json(%{:error => "Error Updating",
@@ -90,18 +93,18 @@ defmodule Auberge.API.V1.Customers do
     end
     delete ":customer_id" do
       customer_id = params[:customer_id]
-      customer = Repo.one(from c in Customer, where: is_nil(c.deleted_at) and c.id == ^customer_id)
+      customer = Repo.one(from c in Customer,
+                          where: is_nil(c.deleted_at) and c.id == ^customer_id)
 
       if customer do
-        changeset = Customer.changeset(customer, %{deleted_at: Ecto.DateTime.utc})
-
+        changeset = Customer.changeset(customer, %{deleted_at: DateTime.utc_now()})
         case Repo.update(changeset) do
-          {:ok, _customer} ->
+          {:ok, customer} ->
             conn
             |> put_status(204)
             |> text("No Content")
           {:error, changeset} ->
-            errors = Ecto.Changeset.traverse_errors(changeset, fn msg -> msg end)
+            errors = Changeset.traverse_errors(changeset, fn msg -> msg end)
             conn
             |> put_status(400)
             |> json(%{:error => "Error Deleting",

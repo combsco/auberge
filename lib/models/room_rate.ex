@@ -1,14 +1,14 @@
 defmodule Auberge.RoomRate do
   @moduledoc false
-  use Ecto.Schema
+  use Auberge.Schema
   import Ecto.Changeset
 
   schema "room_rates" do
     field :description, :string       # Rack
     field :code, :string              # RACKMF
     field :type, :string              # Unused
-    field :starts_at, Ecto.Date       # 2016-02-01
-    field :ends_at, Ecto.Date         # 9999-02-01
+    field :starts_at, :date       # 2016-02-01
+    field :ends_at, :date         # 9999-02-01
     field :days_of_week, :map         # {"Monday": true}
     field :min_stay, :integer         # 1
     field :max_stay, :integer         # 7
@@ -19,7 +19,7 @@ defmodule Auberge.RoomRate do
     field :price, :float              # 261.00
 
     timestamps()
-    field :deleted_at, Ecto.DateTime
+    field :deleted_at, :utc_datetime
 
     many_to_many :types, Auberge.RoomType, join_through: "room_rates_types"
   end

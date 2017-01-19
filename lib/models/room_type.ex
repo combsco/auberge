@@ -1,6 +1,6 @@
 defmodule Auberge.RoomType do
   @moduledoc false
-  use Ecto.Schema
+  use Auberge.Schema
   import Ecto.Changeset
 
   schema "room_types" do
@@ -9,7 +9,7 @@ defmodule Auberge.RoomType do
     field :type_of_beds, :string # Double
 
     timestamps()
-    field :deleted_at, Ecto.DateTime
+    field :deleted_at, :utc_datetime
 
     has_many :rooms, Auberge.Room
     many_to_many :rates, Auberge.RoomRate, join_through: "room_rates_types"

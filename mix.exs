@@ -18,15 +18,14 @@ defmodule Auberge.Mixfile do
 
   defp deps do
     [
-      {:postgrex, ">= 0.0.0"},                  # PostgreSQL Driver
-      {:ecto, "~> 2.0.0"},                      # ORM
-      {:maru, "~> 0.11"},                       # API Framework
-      {:corsica, "~> 0.5"},                     # CORS
-      {:credo, "~> 0.5", only: [:dev, :test]},  # Code Analysis
-      {:distillery, "~> 1.0"},                  # Release Management
-      {:changex, ">= 0.0.0"},                   # Automated Changelog
-      {:espec, "~> 1.2.1", only: [:dev, :test]},        # BDD Testing Framework
-      {:exsync, "~> 0.1", only: :dev}
+      {:postgrex, ">= 0.0.0"},                    # PostgreSQL Driver
+      {:ecto, "~> 2.1"},                        # Database DSL
+      {:maru, "~> 0.11"},                         # API Framework
+      {:corsica, "~> 0.5"},                       # CORS
+      {:credo, "~> 0.5", only: [:dev, :test]},    # Code Analysis/Review
+      {:distillery, "~> 1.0"},                    # Release Management
+      {:espec, "~> 1.2.1", only: [:dev, :test]},  # BDD Testing Framework
+      {:exsync, "~> 0.1", only: :dev}             # Module Reloader
     ]
   end
 end
