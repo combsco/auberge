@@ -2,6 +2,7 @@ defmodule Auberge.Customer do
   @moduledoc false
   use Auberge.Schema
   import Ecto.Changeset
+  import Ecto.Query
 
   schema "customers" do
     field :first_name, :string
@@ -23,6 +24,11 @@ defmodule Auberge.Customer do
     |> validate_format(:email, ~r/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/)
     |> validate_length(:email, max: 254)
     |> unique_constraint(:email)
+  end
+
+  def get_by_uuid(query, uuid) do
+    from c in query,
+    where: is_nil(c.deleted_at) and c.id == ^uuid
   end
 end
 
