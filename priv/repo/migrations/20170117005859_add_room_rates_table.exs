@@ -2,7 +2,8 @@ defmodule Auberge.Repo.Migrations.AddRoomRatesTable do
   use Ecto.Migration
 
   def change do
-    create table(:room_rates) do
+    create table(:room_rates, primary_key: false) do
+      add :id, :uuid, primary_key: true
       add :description, :string, size: 30
       add :code, :string, size: 10
       add :type, :string, size: 30
@@ -13,9 +14,9 @@ defmodule Auberge.Repo.Migrations.AddRoomRatesTable do
       add :max_stay, :integer, default: 7
       add :min_occupancy, :integer, default: 1
       add :max_occupancy, :integer, default: 2
-      add :extra_adult_price, :float, default: 0.00
-      add :extra_child_price, :float, default: 0.00
-      add :price, :float, default: 1.00
+      add :extra_adult_price, :decimal, default: 0.00
+      add :extra_child_price, :decimal, default: 0.00
+      add :price, :decimal, default: 1.00
 
       timestamps()
       add :deleted_at, :utc_datetime

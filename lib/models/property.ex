@@ -1,6 +1,6 @@
 defmodule Auberge.Property do
   @moduledoc false
-  use Ecto.Schema
+  use Auberge.Schema
   import Ecto.Changeset
   alias Auberge.Address
 

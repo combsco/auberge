@@ -2,7 +2,8 @@ defmodule Auberge.Repo.Migrations.AddRoomTypesTable do
   use Ecto.Migration
 
   def change do
-    create table(:room_types) do
+    create table(:room_types, primary_key: false) do
+      add :id, :uuid, primary_key: true
       add :description, :string, size: 30
       add :num_of_beds, :integer, default: 1
       add :type_of_beds, :string, default: "Unknown"

@@ -8,7 +8,7 @@ defmodule Auberge.Data do
 
   def generate do
     Logger.disable(self())
-    _generate
+    _generate()
     Logger.enable(self())
   end
 
@@ -17,7 +17,7 @@ defmodule Auberge.Data do
     # Property ... 96 Room, 6 Floor, 3 Room Layouts
     ovalii_hotel = Repo.insert!(%Property{name: "Ovalii Hotel & Suites", address: %{throughfare: "284 Race Avenue", locality: "East Stroudsburg", administrative_area: "PA", country: "US", postal_code: "18301"}})
     # Room Rate
-    rack_rate = Repo.insert!(%RoomRate{description: "Rack", # aka Default, Standard, etc.
+    rack_rate = Repo.insert!(%RoomRate{description: "Rack", # Rack aka Default, Standard, etc.
                                        code: "RACK1",
                                        starts_at: Ecto.Date.cast!("2017-01-01"),
                                        ends_at: Ecto.Date.cast!("2018-01-01"),
@@ -119,3 +119,5 @@ defmodule Auberge.Data do
 
   end
 end
+
+Auberge.Data.generate

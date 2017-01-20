@@ -5,8 +5,6 @@ defmodule Auberge.API.V1.Customers do
     Allows you to retrieve a customer, update, and delete customers.
   """
   use Maru.Router
-  import Ecto.Query, only: [from: 2]
-  alias Ecto.Changeset
   alias Auberge.Repo
   alias Auberge.Customer
   alias Auberge.Schema
@@ -18,7 +16,8 @@ defmodule Auberge.API.V1.Customers do
 
     desc "Retrieve a specific customer."
     params do
-      requires :customer_uuid, type: String
+      requires :customer_uuid, type: String,
+        regexp: ~r/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/
     end
     get ":customer_uuid" do
       customer =

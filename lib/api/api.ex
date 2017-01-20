@@ -28,14 +28,14 @@ defmodule Auberge.API do
 
   rescue_from Maru.Exceptions.InvalidFormat, as: e do
     conn
-    |> put_status(400)
+    |> put_status(422)
     |> json(%{:error => "Invalid Request",
               :error_description => "Invalid or missing #{e.param} parameter"})
   end
 
   # rescue_from Maru.Exceptions.Validation, as: e do
   #   conn
-  #   |> put_status(400)
+  #   |> put_status(422)
   #   |> json(%{:error => "Invalid Request",
   #             :error_description => "Invalid or missing #{e.param} parameter"})
   # end
