@@ -12,11 +12,11 @@ defmodule Auberge.Address do
     field :country, :string             # USA
   end
 
-  @required_params ~w(throughfare locality administrative_area postal_code country)
-  @optional_params ~w(premise)
+  @required_params ~w(throughfare locality administrative_area postal_code country)a
 
   def changeset(address, params \\ :empty) do
     address
-    |> cast(params, @required_params, @optional_params)
+    |> cast(params, [:throughfare, :locality, :administrative_area, :postal_code, :country])
+    |> validate_required(@required_params)
   end
 end

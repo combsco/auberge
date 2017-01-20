@@ -4,6 +4,8 @@ defmodule Auberge.Customer do
   import Ecto.Changeset
   import Ecto.Query
 
+  @derive {Poison.Encoder, only: [:id, :first_name, :last_name, :phone_num, :email, :inserted_at, :updated_at]}
+
   schema "customers" do
     field :first_name, :string
     field :last_name, :string
@@ -29,15 +31,5 @@ defmodule Auberge.Customer do
   def get_by_uuid(query, uuid) do
     from c in query,
     where: is_nil(c.deleted_at) and c.id == ^uuid
-  end
-end
-
-defimpl Poison.Encoder, for: Auberge.Customer do
-  @attributes ~w(id first_name last_name phone_num email)a
-
-  def encode(customer, options) do
-    customer
-    |> Map.take(@attributes)
-    |> Poison.Encoder.encode(options)
   end
 end
