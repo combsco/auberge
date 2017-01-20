@@ -9,4 +9,3 @@ Unreleased 17.1.0
 *(??? ?, 2017)*
 #### **Added**
 - README with common questions about project that may come up.
-- LICENSE updated to reflect BSD-3-Clause

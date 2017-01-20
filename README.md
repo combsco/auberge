@@ -5,21 +5,27 @@
 
 ## Table of Contents
 
-- [Background](#background)
+- [What is Auberge?](#What is Auberge?)
+- [Status](#Status)
 - [Install](#install)
+- [Deployment](#Deployment)
 - [FAQ](#FAQ)
 - [Contributing](#contributing)
 - [License](#license)
 
-## Background
+## What is Auberge?
 *TODO*: Why did I make this project?
 
+## Status
+Auberge is currently in development and not yet ready for release.
+
 ## Install
+*TODO*: Write up release upgrade/downgrade
+
+## Deployment
 *TODO*: Write up deployment via Docker
 
 *TODO*: Write up deployment via Heroku/Dokku
-
-*TODO*: Write up release upgrade/downgrade
 
 ## FAQ
 #### Do you work in the hospitality industry or even a hotel?
@@ -61,6 +67,6 @@ Feel free to dive in! [Open an issue](https://github.com/combsco/auberge/issues/
 Auberge follows the [Contributor Covenant](http://contributor-covenant.org/version/1/3/0/) Code of Conduct.
 
 ## License
-BSD-3-Clause © 2017 Christopher Combs
+Apache 2.0 © 2017 Christopher Combs
 
 See LICENSE file for full text.
