@@ -20,12 +20,10 @@ defmodule Auberge.API.V1.Properties do
   alias Auberge.Repo
   alias Auberge.Schema
   alias Auberge.Property
-  alias Auberge.Rooms
 
   # TODO - Create rooms / associate rooms?
   # TODO - Search properties
   # TODO - User Management per Property?
-  # /property/{property_uuid}/rooms
   # /rooms/{room_uuid}
   # /rooms/{room_uuid}/rates
   # /rates/{rates_uuid}
@@ -144,19 +142,21 @@ defmodule Auberge.API.V1.Properties do
         end
       end
 
-      namespace :rooms do
-        get do
-          json(conn, %{"hello" => "no params"})
-        end
-      end
+      # namespace :rooms do
+      #   get do
+      #     property =
+      #       Property
+      #       |> Property.get_by_uuid(params[:property_uuid])
+      #       |> Repo.one
+      #
+      #       if property do
+      #         property_rooms = Repo.preload(property, :rooms)
+      #         json(conn, property_rooms)
+      #       else
+      #         put_status(conn, 404)
+      #       end
+      #   end
+      # end
     end
-
-    # desc "Get rooms of a property."
-    # params do
-    #   requires :property_uuid, type: String,
-    #     regexp: ~r/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/
-    #   requires :rooms_uuid, type: String,
-    #     regexp: ~r/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/
-    # end
   end
 end

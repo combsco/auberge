@@ -19,7 +19,23 @@
 ## Status
 Auberge is currently in development and not yet ready for release.
 
+What works? Customers CRUD, Property CRUD
+
 ## Install
+```bash
+$ brew install elixir
+$ git clone git@github.com:combsco/auberge.git
+$ cd auberge
+$ mix deps.get
+$ mix ecto.setup
+
+# console
+$ iex -S mix
+
+# run it
+$ mix run
+```
+
 *TODO*: Write up release upgrade/downgrade
 
 ## Deployment
