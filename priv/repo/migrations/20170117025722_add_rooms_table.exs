@@ -10,7 +10,7 @@ defmodule Auberge.Repo.Migrations.AddRoomsTable do
       add :room_type_id, references(:room_types, on_delete: :nothing, type: :uuid)
 
       timestamps()
-      add :deleted_at, :utc_datetime
+      # add :deleted_at, :utc_datetime
     end
 
     create index(:rooms, [:property_id, :room_num, :floor_num, :room_type_id], unique: true)

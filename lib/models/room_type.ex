@@ -23,7 +23,7 @@ defmodule Auberge.RoomType do
     field :type_of_beds, :string # Double
 
     timestamps()
-    field :deleted_at, :utc_datetime
+    # field :deleted_at, :utc_datetime
 
     has_many :rooms, Auberge.Room
     many_to_many :rates, Auberge.RoomRate, join_through: "room_rates_types"

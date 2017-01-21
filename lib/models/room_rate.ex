@@ -33,7 +33,7 @@ defmodule Auberge.RoomRate do
     field :price, :decimal              # 261.00
 
     timestamps()
-    field :deleted_at, :utc_datetime
+    # field :deleted_at, :utc_datetime
 
     many_to_many :types, Auberge.RoomType, join_through: "room_rates_types"
   end

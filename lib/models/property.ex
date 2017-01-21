@@ -27,7 +27,7 @@ defmodule Auberge.Property do
     embeds_one :address, Address
 
     timestamps()
-    field :deleted_at, :naive_datetime
+    # field :deleted_at, :naive_datetime
 
     has_many :rooms, Room
   end
@@ -42,7 +42,7 @@ defmodule Auberge.Property do
 
   def get_by_uuid(query, uuid) do
     from p in query,
-    where: is_nil(p.deleted_at) and p.id == ^uuid
+    where: p.id == ^uuid
   end
 end
 

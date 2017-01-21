@@ -74,7 +74,8 @@ defmodule Auberge.API.V1.Customers do
 
     desc "Update an existing customer."
     params do
-      requires :customer_uuid, type: String
+      requires :customer_uuid, type: String,
+        regexp: ~r/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/
       optional :first_name, type: String
       optional :last_name, type: String
       optional :phone_num, type: String
@@ -110,7 +111,8 @@ defmodule Auberge.API.V1.Customers do
 
     desc "Deletes an existing customer."
     params do
-      requires :customer_uuid, type: String
+      requires :customer_uuid, type: String,
+        regexp: ~r/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/
     end
     delete ":customer_uuid" do
       customer =

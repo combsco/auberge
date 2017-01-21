@@ -20,6 +20,7 @@ defmodule Auberge.API.V1.Properties do
   alias Auberge.Repo
   alias Auberge.Schema
   alias Auberge.Property
+  alias Auberge.Rooms
 
   # TODO - Delete Property, Update Property, Get Property
   # TODO - Create rooms / associate rooms?
@@ -80,5 +81,81 @@ defmodule Auberge.API.V1.Properties do
         put_status(conn, 404)
       end
     end
+
+    desc "Update a specific property."
+    params do
+      requires :property_uuid, type: String,
+        regexp: ~r/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/
+      optional :address, type: Map do
+        optional :premise, type: String
+        optional :throughfare, type: String
+        optional :locality, type: String
+        optional :administrative_area, type: String
+        optional :postal_code, type: String
+        optional :country, type: String
+      end
+    end
+    patch ":property_uuid" do
+      property =
+        Property
+        |> Property.get_by_uuid(params[:property_uuid])
+        |> Repo.one
+
+      if property do
+        changeset = Property.changeset(property, params)
+
+        case Repo.update(changeset) do
+          {:ok, property} ->
+            conn |> put_status(200) |> json(property)
+
+          {:error, changeset} ->
+            errors = Auberge.Schema.errors(changeset)
+
+            conn
+            |> put_status(409)
+            |> json(%{:domain => "property",
+                      :action => "update",
+                      :errors => errors})
+        end
+      else
+        put_status(conn, 404)
+      end
+    end
+
+    desc "Deletes an existing property."
+    params do
+      requires :property_uuid, type: String,
+        regexp: ~r/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/
+    end
+    delete ":property_uuid" do
+      customer =
+        Property
+        |> Property.get_by_uuid(params[:customer_uuid])
+        |> Repo.one
+
+      if customer do
+        changeset = Customer.changeset(property, %{deleted_at: DateTime.utc_now()})
+
+        case Repo.update(changeset) do
+          {:ok, customer} ->
+            conn |> put_status(200) |> json(customer)
+
+          {:error, changeset} ->
+            errors = Auberge.Schema.errors(changeset)
+
+            conn
+            |> put_status(409)
+            |> json(%{:domain => "customer",
+                      :action => "delete",
+                      :errors => errors})
+        end
+      else
+        put_status(conn, 404)
+      end
+    end
+
+    # delete
+    # property/rooms
+
   end
 end

@@ -22,7 +22,7 @@ defmodule Auberge.Room do
     field :floor_num, :integer          # 7
 
     timestamps()
-    field :deleted_at, :utc_datetime
+    # field :deleted_at, :utc_datetime
 
     belongs_to :property, Auberge.Property
     belongs_to :room_type, Auberge.RoomType

@@ -8,7 +8,7 @@ defmodule Auberge.Repo.Migrations.AddPropertiesTable do
       add :address, :map
 
       timestamps()
-      add :deleted_at, :utc_datetime
+      # add :deleted_at, :utc_datetime
     end
   end
 end

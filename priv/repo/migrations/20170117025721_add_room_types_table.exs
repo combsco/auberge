@@ -9,7 +9,7 @@ defmodule Auberge.Repo.Migrations.AddRoomTypesTable do
       add :type_of_beds, :string, default: "Unknown"
 
       timestamps()
-      add :deleted_at, :utc_datetime
+      # add :deleted_at, :utc_datetime
     end
 
     create index(:room_types, [:description, :num_of_beds, :type_of_beds, :deleted_at], unique: true)

@@ -27,7 +27,7 @@ defmodule Auberge.Customer do
     field :email, :string
 
     timestamps()
-    field :deleted_at, :utc_datetime
+    # field :deleted_at, :utc_datetime
   end
 
   def changeset(customer, params \\ :empty) do
@@ -44,6 +44,6 @@ defmodule Auberge.Customer do
 
   def get_by_uuid(query, uuid) do
     from c in query,
-    where: is_nil(c.deleted_at) and c.id == ^uuid
+    where: c.id == ^uuid
   end
 end
