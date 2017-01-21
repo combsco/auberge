@@ -19,3 +19,7 @@ config :maru, Auberge.API,
     using: :path
   ],
   http: [port: {:system, "PORT"}]
+
+# config :rollbax,
+#   access_token: {:system, "ROLLBAR_TOKEN"},
+#   environment: "production"

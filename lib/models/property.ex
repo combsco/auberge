@@ -16,10 +16,11 @@ defmodule Auberge.Property do
   @moduledoc false
   use Auberge.Schema
   import Ecto.Changeset
+  import Ecto.Query
   alias Auberge.Address
   alias Auberge.Room
 
-  @derive {Poison.Encoder, only: [:id, :name, :address, :rooms, :inserted_at, :updated_at]}
+  @derive {Poison.Encoder, only: [:id, :name, :address, :inserted_at, :updated_at]}
 
   schema "properties" do
     field :name, :string         # Ovalii Hotel & Suites
@@ -37,6 +38,11 @@ defmodule Auberge.Property do
     |> cast_embed(:address, required: false)
     |> validate_required([:name])
     |> validate_length(:name, min: 2, max: 30)
+  end
+
+  def get_by_uuid(query, uuid) do
+    from p in query,
+    where: is_nil(p.deleted_at) and p.id == ^uuid
   end
 end
 

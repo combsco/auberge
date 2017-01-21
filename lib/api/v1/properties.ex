@@ -62,5 +62,23 @@ defmodule Auberge.API.V1.Properties do
                     :errors => errors})
       end
     end
+
+    desc "Retrieve a specific property."
+    params do
+      requires :property_uuid, type: String,
+        regexp: ~r/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/
+    end
+    get ":property_uuid" do
+      property =
+        Property
+        |> Property.get_by_uuid(params[:property_uuid])
+        |> Repo.one
+
+      if property do
+        json(conn, property)
+      else
+        put_status(conn, 404)
+      end
+    end
   end
 end
