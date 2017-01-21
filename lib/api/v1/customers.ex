@@ -28,24 +28,6 @@ defmodule Auberge.API.V1.Customers do
 
   resource :customers do
 
-    desc "Retrieve a specific customer."
-    params do
-      requires :customer_uuid, type: String,
-        regexp: ~r/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/
-    end
-    get ":customer_uuid" do
-      customer =
-        Customer
-        |> Customer.get_by_uuid(params[:customer_uuid])
-        |> Repo.one
-
-      if customer do
-        json(conn, customer)
-      else
-        put_status(conn, 404)
-      end
-    end
-
     desc "Create a new customer."
     params do
       requires :first_name, type: String
@@ -72,72 +54,81 @@ defmodule Auberge.API.V1.Customers do
       end
     end
 
-    desc "Update an existing customer."
     params do
       requires :customer_uuid, type: String,
         regexp: ~r/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/
-      optional :first_name, type: String
-      optional :last_name, type: String
-      optional :phone_num, type: String
-      optional :email, type: String
-      at_least_one_of [:first_name, :last_name, :phone_num, :email]
     end
-    patch ":customer_uuid" do
-      customer =
-        Customer
-        |> Customer.get_by_uuid(params[:customer_uuid])
-        |> Repo.one
+    route_param :customer_uuid do
+      desc "Retrieve a specific customer."
+      get do
+        customer =
+          Customer
+          |> Customer.get_by_uuid(params[:customer_uuid])
+          |> Repo.one
 
-      if customer do
-        changeset = Customer.changeset(customer, params)
-
-        case Repo.update(changeset) do
-          {:ok, customer} ->
-            conn |> put_status(200) |> json(customer)
-
-          {:error, changeset} ->
-            errors = Auberge.Schema.errors(changeset)
-
-            conn
-            |> put_status(409)
-            |> json(%{:domain => "customer",
-                      :action => "update",
-                      :errors => errors})
+        if customer do
+          json(conn, customer)
+        else
+          put_status(conn, 404)
         end
-      else
-        put_status(conn, 404)
       end
-    end
 
-    desc "Deletes an existing customer."
-    params do
-      requires :customer_uuid, type: String,
-        regexp: ~r/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/
-    end
-    delete ":customer_uuid" do
-      customer =
-        Customer
-        |> Customer.get_by_uuid(params[:customer_uuid])
-        |> Repo.one
+      desc "Update an existing customer."
+      params do
+        optional :first_name, type: String
+        optional :last_name, type: String
+        optional :phone_num, type: String
+        optional :email, type: String
+        at_least_one_of [:first_name, :last_name, :phone_num, :email]
+      end
+      patch do
+        customer =
+          Customer
+          |> Customer.get_by_uuid(params[:customer_uuid])
+          |> Repo.one
 
-      if customer do
-        changeset = Customer.changeset(customer, %{deleted_at: DateTime.utc_now()})
+        if customer do
+          changeset = Customer.changeset(customer, params)
 
-        case Repo.update(changeset) do
-          {:ok, customer} ->
-            conn |> put_status(200) |> json(customer)
+          case Repo.update(changeset) do
+            {:ok, customer} ->
+              conn |> put_status(200) |> json(customer)
 
-          {:error, changeset} ->
-            errors = Auberge.Schema.errors(changeset)
+            {:error, changeset} ->
+              errors = Auberge.Schema.errors(changeset)
 
-            conn
-            |> put_status(409)
-            |> json(%{:domain => "customer",
-                      :action => "delete",
-                      :errors => errors})
+              conn
+              |> put_status(409)
+              |> json(%{:domain => "customer",
+                        :action => "update",
+                        :errors => errors})
+          end
+        else
+          put_status(conn, 404)
         end
-      else
-        put_status(conn, 404)
+      end
+
+      desc "Deletes an existing customer."
+      delete do
+        customer =
+          Customer
+          |> Customer.get_by_uuid(params[:customer_uuid])
+          |> Repo.one
+
+        if customer do
+          case Repo.delete(customer) do
+            {:ok, customer} ->
+              conn |> put_status(200) |> json(customer)
+            {:error, error} ->
+              conn
+              |> put_status(409)
+              |> json(%{:domain => "customer",
+                        :action => "delete",
+                        :errors => error})
+          end
+        else
+          put_status(conn, 404)
+        end
       end
     end
   end

@@ -32,7 +32,7 @@ defmodule Auberge.Customer do
 
   def changeset(customer, params \\ :empty) do
     customer
-    |> cast(params, [:first_name, :last_name, :phone_num, :email, :deleted_at])
+    |> cast(params, [:first_name, :last_name, :phone_num, :email])
     |> validate_required([:first_name, :last_name, :email])
     |> validate_length(:first_name, min: 2, max: 30)
     |> validate_length(:last_name, min: 2, max: 30)

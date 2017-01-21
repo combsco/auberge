@@ -14,6 +14,6 @@ defmodule Auberge.Repo.Migrations.AddCustomersTable do
       # add :deleted_at, :utc_datetime
     end
 
-    create index(:customers, [:email], unique: true, where: "deleted_at is null")
+    create index(:customers, [:email], unique: true)
   end
 end
