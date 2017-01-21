@@ -5,7 +5,7 @@ use Mix.Config
 # PORT
 
 # Do not include metadata/timestamps in logs
-config :logger, :console, format: "[$level] $message\n"
+config :logger, level: :info
 
 # Setup repos and database adapaters
 config :auberge, ecto_repos: [Auberge.Repo]
@@ -19,3 +19,7 @@ config :maru, Auberge.API,
     using: :path
   ],
   http: [port: {:system, "PORT"}]
+
+# config :rollbax,
+#   access_token: {:system, "ROLLBAR_TOKEN"},
+#   environment: "production"

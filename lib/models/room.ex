@@ -1,6 +1,20 @@
+# Copyright 2017 Christopher Combs
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 defmodule Auberge.Room do
   @moduledoc false
-  use Ecto.Schema
+  use Auberge.Schema
   import Ecto.Changeset
 
   schema "rooms" do
@@ -8,7 +22,7 @@ defmodule Auberge.Room do
     field :floor_num, :integer          # 7
 
     timestamps()
-    field :deleted_at, Ecto.DateTime
+    # field :deleted_at, :utc_datetime
 
     belongs_to :property, Auberge.Property
     belongs_to :room_type, Auberge.RoomType
