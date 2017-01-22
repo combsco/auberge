@@ -21,7 +21,7 @@ defmodule Auberge.Schema do
       use Ecto.Schema
       @primary_key {:id, :binary_id, autogenerate: true}
       @foreign_key_type :binary_id
-      @timestamps_opts [type: :utc_datetime, usec: false]
+      @timestamps_opts [type: :utc_datetime, usec: false, inserted_at: :created_at]
     end
   end
 

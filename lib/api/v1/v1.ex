@@ -20,4 +20,6 @@ defmodule Auberge.API.V1 do
 
   mount Auberge.API.V1.Customers
   mount Auberge.API.V1.Properties
+
+  mount Auberge.API.V1.Rates
 end

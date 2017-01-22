@@ -12,26 +12,40 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-defmodule Auberge.Room do
-  @moduledoc false
-  use Auberge.Schema
-  import Ecto.Changeset
+defmodule Auberge.API.V1.Rates do
+  @moduledoc """
+    Property Resource: base_url/api_version/rates
+  """
+  use Maru.Router
+  alias Auberge.Repo
+  alias Auberge.Schema
+  alias Auberge.RoomRate
 
-  schema "rooms" do
-    field :room_num, :string            # 701A
-    field :floor_num, :integer          # 7
-    field :size_sqm, :decimal           # 27.8
+  resource :rates do
+    post do
+      conn
+      |> put_status(200)
+      |> json(%{:hello => "nah"})
+    end
 
-    timestamps()
-    # field :deleted_at, :utc_datetime
+    route_param :rate_uuid do
+      get do
 
-    belongs_to :property, Auberge.Property
-    belongs_to :room_type, Auberge.RoomType
+      end
+
+      patch do
+
+      end
+
+      delete do
+
+      end
+
+      post "/associate" do
+        conn
+        |> put_status(200)
+        |> json(%{:hello => "world"})
+      end
+    end
   end
-
-  def changeset(room, params \\ :empty) do
-      room
-      |> cast(params, [:room_num, :floor_num])
-  end
-
 end

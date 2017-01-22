@@ -23,11 +23,20 @@ defmodule Auberge.Property do
   @derive {Poison.Encoder, only: [:id, :name, :address, :inserted_at, :updated_at]}
 
   schema "properties" do
-    field :name, :string         # Ovalii Hotel & Suites
+    field :name, :string        # Ovalii Hotel & Suites
     embeds_one :address, Address
+    field :cancellation_time    # 18:00
+    embeds_one :reservation_cutoff, ReservationCutoff, primary_key: false do
+      field :time, :string      # 05:00
+      field :day, :string       # same
+    end
+    field :currency, :string    # USD (ISO 4217)
+    field :tz, :string          # America/New_York
+    field :status, :string      # active
 
+    field :created_by, :string  # chrisc
+    field :updated_by, :string  # chrisc
     timestamps()
-    # field :deleted_at, :naive_datetime
 
     has_many :rooms, Room
   end

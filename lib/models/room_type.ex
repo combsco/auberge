@@ -18,12 +18,30 @@ defmodule Auberge.RoomType do
   import Ecto.Changeset
 
   schema "room_types" do
-    field :description, :string  # Guest
-    field :num_of_beds, :integer # 2
-    field :type_of_beds, :string # Double
+    field :type, :string                  # Guest
+    field :class, :string                 # Standard
+    field :view, :string                  # City View
+    field :max_adults, :integer            # 4
+    field :max_children, :integer            # 3
 
+    embeds_one :bedding, Bedding, primary_key: false do
+      field :type, :string                # Double
+      field :quantity, :integer           # 2
+    end
+
+    embeds_many :extra_bedding, ExtraBedding do
+      field :type, :string                # Rollaway Bed
+      field :quantity, :integer           # 1
+      field :frequency, :string         # Per Day, One-time, Per Week
+      field :surcharge, :decimal           # 20.00
+    end
+
+    field :smoking, :boolean              # false
+    field :status, :string                # active
+
+    field :created_by, :string            # chrisc
+    field :updated_by, :string            # chrisc
     timestamps()
-    # field :deleted_at, :utc_datetime
 
     has_many :rooms, Auberge.Room
     many_to_many :rates, Auberge.RoomRate, join_through: "room_rates_types"

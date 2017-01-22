@@ -18,22 +18,33 @@ defmodule Auberge.RoomRate do
   import Ecto.Changeset
 
   schema "room_rates" do
-    field :description, :string         # Rack
-    field :code, :string                # RACKMF
-    field :type, :string                # Unused
+    field :name, :string                # Rack
+    field :short_code, :string          # RACKMF
+    field :type, :string                # Unused, maybe a priority type deal?
     field :starts_at, :date             # 2016-02-01
     field :ends_at, :date               # 9999-02-01
-    field :days_of_week, :map           # {"Monday": true}
-    field :min_stay, :integer           # 1
-    field :max_stay, :integer           # 7
+    embeds_one :effective_days, EffectiveOnDays, primary_key: false do
+      field :monday, :boolean           # true
+      field :tuesday, :boolean          # true
+      field :wednesday, :boolean        # true
+      field :thursday, :boolean         # true
+      field :friday, :boolean           # true
+      field :saturday, :boolean         # true
+      field :sunday, :boolean           # true
+    end
+    field :min_stay, :integer           # 1 (nights)
+    field :max_stay, :integer           # 7 (nights)
     field :min_occupancy, :integer      # 1
     field :max_occupancy, :integer      # 2
     field :extra_adult_price, :decimal  # 199.00
     field :extra_child_price, :decimal  # 59.00
     field :price, :decimal              # 261.00
+    field :price_model, :string         # PerDay
+    field :status, :string              # active
 
+    field :created_by, :string          # chrisc
+    field :updated_by, :string          # chrisc
     timestamps()
-    # field :deleted_at, :utc_datetime
 
     many_to_many :types, Auberge.RoomType, join_through: "room_rates_types"
   end
