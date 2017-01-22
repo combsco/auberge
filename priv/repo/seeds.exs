@@ -160,7 +160,7 @@ defmodule Auberge.Data do
                                           smoking: false,
                                           status: "active"})
 
-    # Associate Room & Types
+    # Associate Rates & Types
     guest_2_dbl |> Repo.preload(:rates) |> Ecto.Changeset.change() |> Ecto.Changeset.put_assoc(:rates, [rack_rate]) |> Repo.update!
     guest_1_king |> Repo.preload(:rates) |> Ecto.Changeset.change() |> Ecto.Changeset.put_assoc(:rates, [rack_rate]) |> Repo.update!
     suite_1_king |> Repo.preload(:rates) |> Ecto.Changeset.change() |> Ecto.Changeset.put_assoc(:rates, [rack_rate]) |> Repo.update!

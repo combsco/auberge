@@ -21,4 +21,32 @@ defmodule Auberge.API.V1.Rooms do
   # PATCH /rooms/:room
   # DELETE /rooms/:room
   # GET /rooms/:room/rates
+
+  resource :rooms do
+    post do
+      conn
+      |> put_status(200)
+      |> json(%{:hello => "nah"})
+    end
+
+    route_param :type_uuid do
+      get do
+
+      end
+
+      patch do
+
+      end
+
+      delete do
+
+      end
+
+      post "/rates" do
+        conn
+        |> put_status(200)
+        |> json(%{:hello => "world"})
+      end
+    end
+  end
 end

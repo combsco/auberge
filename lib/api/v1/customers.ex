@@ -40,7 +40,6 @@ defmodule Auberge.API.V1.Customers do
 
   resource :customers do
 
-    desc "Create a new customer."
     params do
       requires :first_name, type: String
       requires :last_name, type: String
@@ -71,7 +70,6 @@ defmodule Auberge.API.V1.Customers do
         regexp: ~r/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/
     end
     route_param :customer_uuid do
-      desc "Retrieve a specific customer."
       get do
         customer =
           Customer
@@ -85,7 +83,6 @@ defmodule Auberge.API.V1.Customers do
         end
       end
 
-      desc "Update an existing customer."
       params do
         optional :first_name, type: String
         optional :last_name, type: String
@@ -120,7 +117,6 @@ defmodule Auberge.API.V1.Customers do
         end
       end
 
-      desc "Deletes an existing customer."
       delete do
         customer =
           Customer

@@ -19,7 +19,7 @@ defmodule Auberge.Customer do
   import Ecto.Query
   alias Auberge.Address
 
-  @derive {Poison.Encoder, only: [:id, :first_name, :last_name, :phone_num, :email, :inserted_at, :updated_at]}
+  @derive {Poison.Encoder, only: [:id, :first_name, :last_name, :phone_num, :email, :address, :created_at, :updated_at]}
 
   schema "customers" do
     field :first_name, :string

@@ -21,6 +21,15 @@ defmodule Auberge.API.V1.RoomRates do
   alias Auberge.Schema
   alias Auberge.RoomRate
 
+  ## Routes
+  # GET /roomrates/:rate
+  ## Future Routes
+  # POST /roomrates
+  # GET /roomrates
+  # PATCH /roomrates/:rate
+  # DELETE /roomrates/:rate
+  # POST /roomrates/:room/associate --- type=:type_id
+
   resource :roomrates do
     post do
       conn
@@ -28,9 +37,22 @@ defmodule Auberge.API.V1.RoomRates do
       |> json(%{:hello => "nah"})
     end
 
+    params do
+      requires :rate_uuid, type: String,
+        regexp: ~r/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/
+    end
     route_param :rate_uuid do
       get do
+        rate =
+          RoomRate
+          |> RoomRate.get_by_uuid(params[:rate_uuid])
+          |> Repo.one
 
+        if rate do
+          json(conn, rate)
+        else
+          put_status(conn, 404)
+        end
       end
 
       patch do

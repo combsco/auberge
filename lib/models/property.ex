@@ -20,7 +20,9 @@ defmodule Auberge.Property do
   alias Auberge.Address
   alias Auberge.Room
 
-  @derive {Poison.Encoder, only: [:id, :name, :address, :inserted_at, :updated_at]}
+  @derive {Poison.Encoder, only: [:id, :name, :address, :cancellation_time,
+                                  :reservation_cutoff, :currency, :tz, :status,
+                                  :created_at, :updated_at]}
 
   schema "properties" do
     field :name, :string        # Ovalii Hotel & Suites
@@ -54,15 +56,3 @@ defmodule Auberge.Property do
     where: p.id == ^uuid
   end
 end
-
-# defimpl Poison.Encoder, for: Auberge.Property do
-#   @attributes ~w(name address inserted_at updated_at)a
-#
-#   def encode(property, options) do
-#     IO.inspect property
-#
-#     property
-#     |> Map.take(@attributes)
-#     |> Poison.Encoder.encode(options)
-#   end
-# end

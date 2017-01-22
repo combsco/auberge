@@ -16,6 +16,12 @@ defmodule Auberge.RoomRate do
   @moduledoc false
   use Auberge.Schema
   import Ecto.Changeset
+  import Ecto.Query
+
+  @derive {Poison.Encoder, only: [:name, :short_code, :type, :starts_at, :ends_at,
+                                  :effective_days, :min_stay, :max_stay,
+                                  :min_occupancy, :max_occupancy, :extra_adult_price,
+                                  :extra_child_price, :price, :price_model, :status]}
 
   schema "room_rates" do
     field :name, :string                # Rack
@@ -49,11 +55,9 @@ defmodule Auberge.RoomRate do
     many_to_many :types, Auberge.RoomType, join_through: "room_rates_types"
   end
 
-  @required_params ~w(description code starts_at ends_at days_of_week min_stay max_stay min_occupancy max_occupancy price)
-  @optional_params ~w(type extra_adult_price extra_child_price)
-
-  def changeset(room_rate, params \\ :empty) do
-    room_rate
-    |> cast(params, @required_params, @optional_params)
+  def get_by_uuid(query, uuid) do
+    from rr in query,
+    where: rr.id == ^uuid
   end
+
 end
