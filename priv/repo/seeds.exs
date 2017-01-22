@@ -48,7 +48,7 @@ defmodule Auberge.Data do
                          last_name: "Price",
                          phone_num: "16056676201",
                          email: "bprice4@1688.com",
-                         address: [%{type: "Mailing",
+                         address: [%Address{type: "Mailing",
                                     throughfare: "600 Bellgrove Place",
                                     locality: "Sioux Falls",
                                     administrative_area: "South Dakota",

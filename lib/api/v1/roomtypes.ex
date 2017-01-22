@@ -12,16 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-defmodule Auberge.API.V1 do
-  @moduledoc false
+defmodule Auberge.API.V1.RoomTypes do
   use Maru.Router
 
-  version "v1"
-
-  mount Auberge.API.V1.Customers
-  mount Auberge.API.V1.Properties
-
-  mount Auberge.API.V1.Rooms
-  mount Auberge.API.V1.RoomRates
-  mount Auberge.API.V1.RoomTypes
 end

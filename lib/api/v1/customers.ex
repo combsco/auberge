@@ -25,6 +25,18 @@ defmodule Auberge.API.V1.Customers do
 
   # TODO - Searching for a customer by first/last/address/etc
   # TODO - Customer Create / Get / Update add address embedded schema
+  # TODO - List all customers
+  # FIX - Allow delete if foreign key constraint isn't an issue.
+  # FIX - Customer POST for addresses
+
+  ## Routes
+  # POST /customers
+  # GET /customers/:customer
+  # PATCH /customers/:customer
+  # DELETE /customer/:customer
+  ## Future Routes
+  # GET /customers
+  # GET /customers?email=dan@gmail.com
 
   resource :customers do
 

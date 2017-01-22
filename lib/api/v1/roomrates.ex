@@ -12,16 +12,40 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-defmodule Auberge.API.V1 do
-  @moduledoc false
+defmodule Auberge.API.V1.RoomRates do
+  @moduledoc """
+    Property Resource: base_url/api_version/roomrates
+  """
   use Maru.Router
+  alias Auberge.Repo
+  alias Auberge.Schema
+  alias Auberge.RoomRate
 
-  version "v1"
+  resource :roomrates do
+    post do
+      conn
+      |> put_status(200)
+      |> json(%{:hello => "nah"})
+    end
 
-  mount Auberge.API.V1.Customers
-  mount Auberge.API.V1.Properties
+    route_param :rate_uuid do
+      get do
 
-  mount Auberge.API.V1.Rooms
-  mount Auberge.API.V1.RoomRates
-  mount Auberge.API.V1.RoomTypes
+      end
+
+      patch do
+
+      end
+
+      delete do
+
+      end
+
+      post "/associate" do
+        conn
+        |> put_status(200)
+        |> json(%{:hello => "world"})
+      end
+    end
+  end
 end

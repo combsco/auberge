@@ -21,12 +21,8 @@ defmodule Auberge.API.V1.Properties do
   alias Auberge.Schema
   alias Auberge.Property
 
-  # TODO - Create rooms / associate rooms?
   # TODO - Search properties
   # TODO - User Management per Property?
-  # /rooms/{room_uuid}
-  # /rooms/{room_uuid}/rates
-  # /rates/{rates_uuid}
 
   resource :properties do
 
