@@ -22,19 +22,66 @@ defmodule Auberge.API.V1.RoomRates do
   alias Auberge.RoomRate
 
   ## Routes
-  # GET /roomrates/:rate
-  ## Future Routes
-  # POST /roomrates
   # GET /roomrates
-  # PATCH /roomrates/:rate
+  # GET /roomrates/:rate
   # DELETE /roomrates/:rate
-  # POST /roomrates/:room/associate --- type=:type_id
+  # POST /roomrates
+  # PATCH /roomrates/:rate
 
   resource :roomrates do
+
+    get do
+      roomrates = Repo.all(RoomRate)
+      if roomrates do
+        json(conn, roomrates)
+      else
+        json(conn, [])
+      end
+    end
+
+    params do
+      requires :name, type: String
+      requires :short_code, type: String
+      requires :type, type: String
+      requires :starts_at, type: String,
+        regexp: ~r/^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/
+      requires :ends_at, type: String,
+        regexp: ~r/^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/
+      requires :effective_days, type: Map do
+        requires :monday, type: Boolean
+        requires :tuesday, type: Boolean
+        requires :wednesday, type: Boolean
+        requires :thursday, type: Boolean
+        requires :friday, type: Boolean
+        requires :saturday, type: Boolean
+        requires :sunday, type: Boolean
+      end
+      optional :min_stay, type: Integer
+      optional :max_stay, type: Integer
+      optional :min_occupancy, type: Integer
+      optional :max_occupancy, type: Integer
+      optional :extra_adult_price, type: Integer
+      optional :extra_child_price, type: Integer
+      optional :price, type: Integer
+      optional :price_model, type: String
+      optional :status, type: String
+    end
     post do
-      conn
-      |> put_status(200)
-      |> json(%{:hello => "nah"})
+      changeset = RoomRate.changeset(%RoomRate{}, params)
+
+      case Repo.insert(changeset) do
+        {:ok, rate} ->
+          conn |> put_status(201) |> json(rate)
+
+        {:error, changeset} ->
+          errors = Schema.errors(changeset)
+
+          conn
+          |> put_status(409)
+          |> json(%{:domain => "roomrate",
+                    :action => "create",
+                    :errors => errors})
+      end
     end
 
     params do
@@ -55,18 +102,81 @@ defmodule Auberge.API.V1.RoomRates do
         end
       end
 
+      params do
+        optional :name, type: String
+        optional :short_code, type: String
+        optional :type, type: String
+        optional :starts_at, type: String,
+          regexp: ~r/^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/
+        optional :ends_at, type: String,
+          regexp: ~r/^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/
+        optional :effective_days, type: Map do
+          requires :monday, type: Boolean
+          requires :tuesday, type: Boolean
+          requires :wednesday, type: Boolean
+          requires :thursday, type: Boolean
+          requires :friday, type: Boolean
+          requires :saturday, type: Boolean
+          requires :sunday, type: Boolean
+        end
+        optional :min_stay, type: Integer
+        optional :max_stay, type: Integer
+        optional :min_occupancy, type: Integer
+        optional :max_occupancy, type: Integer
+        optional :extra_adult_price, type: Integer
+        optional :extra_child_price, type: Integer
+        optional :price, type: String
+        optional :price_model, type: String
+        optional :status, type: String
+      end
       patch do
+        rate =
+          RoomRate
+          |> RoomRate.get_by_uuid(params[:rate_uuid])
+          |> Repo.one
 
+        if rate do
+          changeset = RoomRate.changeset(rate, params)
+
+          case Repo.update(changeset) do
+            {:ok, rate} ->
+              conn |> put_status(201) |> json(rate)
+
+            {:error, changeset} ->
+              errors = Schema.errors(changeset)
+
+              conn
+              |> put_status(409)
+              |> json(%{:domain => "roomrate",
+                        :action => "update",
+                        :errors => errors})
+          end
+        else
+          put_status(conn, 404)
+        end
       end
 
       delete do
+        rate =
+          RoomRate
+          |> RoomRate.get_by_uuid(params[:rate_uuid])
+          |> Repo.one
 
-      end
+        if rate do
+          case Repo.delete(rate) do
+            {:ok, rate} ->
+              conn |> put_status(200) |> json(rate)
 
-      post "/associate" do
-        conn
-        |> put_status(200)
-        |> json(%{:hello => "world"})
+            {:error, error} ->
+              conn
+              |> put_status(409)
+              |> json(%{:domain => "roomrate",
+                        :action => "delete",
+                        :errors => error})
+          end
+        else
+          put_status(conn, 404)
+        end
       end
     end
   end

@@ -185,7 +185,7 @@ defmodule Auberge.API.V1.RoomTypes do
           |> RoomRate.get_by_uuid(params[:roomrate_uuid])
           |> Repo.one
 
-        if type && rate do
+        if type and rate do
           type =
             type
             |> Repo.preload(:rates)
