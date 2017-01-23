@@ -58,7 +58,8 @@ $ curl -XPOST http://localhost:3000/v1/customers \
       -d email="SeanAWood@invalidemail.com"
 # You should get back some beautiful JSON.
 
-$ mix ecto.reset # If you want to start fresh with no seed data or to get a re-do, run ecto.setup afterwards for seeds.
+$ mix ecto.reset # Start fresh with no seed data or to get a re-do
+# run 'mix ecto.setup' afterwards to re-seeds if needed.
 ```
 
 For releases there will just be a binary or docker file you can run no extra setup like above.
@@ -91,11 +92,11 @@ Auberge follows the [Contributor Covenant](http://contributor-covenant.org/versi
 ## License
 Copyright 2017 Christopher Combs
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
+Licensed under the Apache License, Version 2.0 (the "License").
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
 See the [LICENSE](./LICENSE) for the specific language governing permissions and
 limitations under the License.
