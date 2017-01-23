@@ -12,16 +12,41 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-defmodule Auberge.API.V1 do
-  @moduledoc false
+defmodule Auberge.API.V1.Rooms do
   use Maru.Router
 
-  version "v1"
+  ## Future Routes
+  # POST /rooms -- body has property_id
+  # GET /rooms/:room
+  # PATCH /rooms/:room
+  # DELETE /rooms/:room
+  # GET /rooms/:room/rates
 
-  mount Auberge.API.V1.Customers
-  mount Auberge.API.V1.Properties
+  resource :rooms do
+    post do
+      conn
+      |> put_status(200)
+      |> json(%{:hello => "nah"})
+    end
 
-  mount Auberge.API.V1.Rooms
-  mount Auberge.API.V1.RoomRates
-  mount Auberge.API.V1.RoomTypes
+    route_param :type_uuid do
+      get do
+
+      end
+
+      patch do
+
+      end
+
+      delete do
+
+      end
+
+      post "/rates" do
+        conn
+        |> put_status(200)
+        |> json(%{:hello => "world"})
+      end
+    end
+  end
 end

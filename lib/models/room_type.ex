@@ -16,21 +16,75 @@ defmodule Auberge.RoomType do
   @moduledoc false
   use Auberge.Schema
   import Ecto.Changeset
+  import Ecto.Query
+
+  @derive {Poison.Encoder, only: [:id, :type, :class, :view, :max_adults, :max_children,
+                                  :bedding, :extra_bedding, :smoking, :status, :rates,
+                                  :created_at, :updated_at]}
 
   schema "room_types" do
-    field :description, :string  # Guest
-    field :num_of_beds, :integer # 2
-    field :type_of_beds, :string # Double
+    field :type, :string                          # Guest
+    field :class, :string                         # Standard
+    field :view, :string                          # City View
+    field :max_adults, :integer, default: 2       # 4
+    field :max_children, :integer, default: 2     # 3
 
+    embeds_one :bedding, Bedding, primary_key: false do
+      field :type, :string                        # Double
+      field :quantity, :integer                   # 2
+    end
+
+    embeds_many :extra_bedding, ExtraBedding do
+      field :type, :string                        # Rollaway Bed
+      field :quantity, :integer                   # 1
+      field :frequency, :string                   # Per Day, One-time, Per Week
+      field :surcharge, :decimal                  # 20.00
+    end
+
+    field :smoking, :boolean, default: false      # false
+    field :status, :string, default: "active"     # active
+
+    field :created_by, :string                    # chrisc
+    field :updated_by, :string                    # chrisc
     timestamps()
-    # field :deleted_at, :utc_datetime
 
     has_many :rooms, Auberge.Room
     many_to_many :rates, Auberge.RoomRate, join_through: "room_rates_types"
   end
 
-  def changeset(room_type, params \\ :empty) do
-    room_type
-    |> cast(params, [:description, :num_of_beds, :type_of_beds])
+  def changeset(type, params \\ :empty) do
+    type
+    |> cast(params, [:type, :class, :view, :max_adults, :max_children,
+                     :smoking, :status, :created_at, :updated_at])
+    |> cast_embed(:bedding, with: &bedding_changeset/2, required: true)
+    |> cast_embed(:extra_bedding, with: &extra_bedding_changeset/2, required: false)
+    |> validate_required([:type, :class, :bedding])
+    |> validate_length(:type, max: 30)
+    |> validate_length(:class, max: 30)
+    |> validate_length(:view, max: 30)
+    |> validate_number(:max_adults, greater_than_or_equal_to: 0)
+    |> validate_number(:max_children, greater_than_or_equal_to: 0)
+    |> validate_inclusion(:status, ["active", "inactive"])
+  end
+
+  defp bedding_changeset(type, params) do
+    type
+    |> cast(params, [:type, :quantity])
+    |> validate_required([:type, :quantity])
+    |> validate_number(:quantity, greater_than_or_equal_to: 0)
+  end
+
+  # FIXME - How to identify the array to modify?
+  defp extra_bedding_changeset(type, params) do
+    type
+    |> cast(params, [:type, :quantity, :frequency, :surcharge])
+    |> validate_required([:type, :quantity, :frequency, :surcharge])
+    |> validate_number(:quantity, greater_than_or_equal_to: 0)
+    |> validate_number(:surcharge, greater_than_or_equal_to: 0)
+  end
+
+  def get_by_uuid(query, uuid) do
+    from rt in query,
+    where: rt.id == ^uuid
   end
 end

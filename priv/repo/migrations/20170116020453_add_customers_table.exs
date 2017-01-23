@@ -8,10 +8,11 @@ defmodule Auberge.Repo.Migrations.AddCustomersTable do
       add :last_name, :string, size: 30
       add :phone_num, :string, size: 15
       add :email, :string, size: 254
-      add :address, :map
+      add :address, {:array, :map}, default: []
 
-      timestamps(type: :utc_datetime, usec: false)
-      # add :deleted_at, :utc_datetime
+      add :created_by, :string, size: 10
+      add :updated_by, :string, size: 10
+      timestamps(type: :utc_datetime, usec: false, inserted_at: :created_at)
     end
 
     create index(:customers, [:email], unique: true)

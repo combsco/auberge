@@ -21,16 +21,11 @@ defmodule Auberge.API.V1.Properties do
   alias Auberge.Schema
   alias Auberge.Property
 
-  # TODO - Create rooms / associate rooms?
   # TODO - Search properties
   # TODO - User Management per Property?
-  # /rooms/{room_uuid}
-  # /rooms/{room_uuid}/rates
-  # /rates/{rates_uuid}
 
   resource :properties do
 
-    desc "Create a new property."
     params do
       requires :name, type: String
       optional :address, type: Map do
@@ -66,12 +61,12 @@ defmodule Auberge.API.V1.Properties do
         regexp: ~r/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/
     end
     route_param :property_uuid do
-      desc "Retrieve a specific property."
       get do
         property =
           Property
           |> Property.get_by_uuid(params[:property_uuid])
           |> Repo.one
+          # |> Repo.preload(:rooms)
 
         if property do
           json(conn, property)
@@ -80,7 +75,6 @@ defmodule Auberge.API.V1.Properties do
         end
       end
 
-      desc "Update a specific property."
       params do
         optional :name, type: String
         optional :address, type: Map do
@@ -119,7 +113,6 @@ defmodule Auberge.API.V1.Properties do
         end
       end
 
-      desc "Deletes an existing property."
       delete do
         property =
           Property

@@ -17,17 +17,20 @@ defmodule Auberge.Customer do
   use Auberge.Schema
   import Ecto.Changeset
   import Ecto.Query
+  alias Auberge.Address
 
-  @derive {Poison.Encoder, only: [:id, :first_name, :last_name, :phone_num, :email, :inserted_at, :updated_at]}
+  @derive {Poison.Encoder, only: [:id, :first_name, :last_name, :phone_num, :email, :address, :created_at, :updated_at]}
 
   schema "customers" do
     field :first_name, :string
     field :last_name, :string
     field :phone_num, :string
     field :email, :string
+    embeds_many :address, Address
 
+    field :created_by, :string  # chrisc
+    field :updated_by, :string  # chrisc
     timestamps()
-    # field :deleted_at, :utc_datetime
   end
 
   def changeset(customer, params \\ :empty) do

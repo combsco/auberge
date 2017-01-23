@@ -17,12 +17,16 @@ defmodule Auberge.Room do
   use Auberge.Schema
   import Ecto.Changeset
 
+  @derive {Poison.Encoder, only: [:room_num, :floor_num, :size_sqm]}
+
   schema "rooms" do
     field :room_num, :string            # 701A
     field :floor_num, :integer          # 7
+    field :size_sqm, :decimal           # 27.8
 
+    field :created_by, :string  # chrisc
+    field :updated_by, :string  # chrisc
     timestamps()
-    # field :deleted_at, :utc_datetime
 
     belongs_to :property, Auberge.Property
     belongs_to :room_type, Auberge.RoomType

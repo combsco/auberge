@@ -18,6 +18,7 @@ defmodule Auberge.Address do
   import Ecto.Changeset
 
   embedded_schema do
+    field :type, :string                # mailing, billing
     field :premise, :string             # Apt 201
     field :throughfare, :string         # 284 Race Avenue
     field :locality, :string            # East Strousburg
