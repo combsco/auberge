@@ -6,15 +6,17 @@
 ## Table of Contents
 
 - [What is Auberge?](#What is Auberge?)
+- [Technology Stack](#Technology Stack)
 - [Status](#Status)
 - [Install](#install)
 - [Deployment](#Deployment)
 - [FAQ](./FAQ.md)
+- [Todo](#Todo)
 - [Contributing](#contributing)
 - [License](#license)
 
 ## What is Auberge?
-Auberge is a hotel management and booking system.
+Auberge is a hotel management and booking system. You're currently viewing the core system aka the API of Auberge.
 
 *TODO*: Why did I make this project?
 
@@ -34,18 +36,19 @@ Auberge is currently in development and not yet ready for proper release. Everyt
 
 **What endpoints work as of the last PR?** Customers, Properties, RoomRates, RoomTypes
 
-## Install (developer)
+## Install (developer/test)
 ```bash
 $ brew install elixir # Only if you have Homebrew installed.
+
 $ git clone git@github.com:combsco/auberge.git
 $ cd auberge
 $ mix deps.get   # Get any missing dependencies
 $ mix ecto.setup # This will create, migrate and seed the database
 
-# console
+# For the console
 $ iex -S mix
 
-# run it
+# Run it (background)
 $ mix run
 
 $ curl -XPOST http://localhost:3000/v1/customers \
@@ -94,5 +97,5 @@ you may not use this file except in compliance with the License.
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the [LICENSE.md](./LICENSE.md) for the specific language governing permissions and
+See the [LICENSE](./LICENSE) for the specific language governing permissions and
 limitations under the License.
