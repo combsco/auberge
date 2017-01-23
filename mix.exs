@@ -31,7 +31,6 @@ defmodule Auberge.Mixfile do
       {:postgrex, ">= 0.0.0"},                    # PostgreSQL Driver
       {:ecto, "~> 2.1"},                          # Database DSL
       {:maru, "~> 0.11"},                         # API Framework
-      {:maru_swagger, "~> 0.8"},                  # Swagger Spec Docs
       {:corsica, "~> 0.5"},                       # CORS
       {:credo, "~> 0.5", only: [:dev, :test]},    # Code Analysis/Review
       {:distillery, "~> 1.0"},                    # Release Management
