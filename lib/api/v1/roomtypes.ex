@@ -20,6 +20,7 @@ defmodule Auberge.API.V1.RoomTypes do
   alias Auberge.Repo
   alias Auberge.Schema
   alias Auberge.RoomType
+  alias Auberge.RoomRate
   ## Routes
   # GET /roomtypes
   # POST /roomtypes
@@ -169,10 +170,46 @@ defmodule Auberge.API.V1.RoomTypes do
         end
       end
 
+      params do
+        requires :roomrate_uuid, type: String,
+          regexp: ~r/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/
+      end
       post "/associate" do
-        conn
-        |> put_status(200)
-        |> json(%{:hello => "world"})
+        type =
+          RoomType
+          |> RoomType.get_by_uuid(params[:type_uuid])
+          |> Repo.one
+
+        rate =
+          RoomRate
+          |> RoomRate.get_by_uuid(params[:roomrate_uuid])
+          |> Repo.one
+
+        if type && rate do
+          type =
+            type
+            |> Repo.preload(:rates)
+            |> Ecto.Changeset.change()
+            |> Ecto.Changeset.put_assoc(:rates, [rate])
+            case Repo.update(type) do
+              {:ok, type} ->
+                conn |> put_status(200) |> json(type)
+              {:error, changeset} ->
+                errors = Auberge.Schema.errors(changeset)
+
+                conn
+                |> put_status(409)
+                |> json(%{:domain => "roomtype",
+                          :action => "associate",
+                          :errors => errors})
+            end
+        else
+          conn
+          |> put_status(409)
+          |> json(%{:domain => "roomtype",
+                    :action => "associate",
+                    :errors => "Room Type or Room Rate is invalid/missing"})
+        end
       end
     end
   end

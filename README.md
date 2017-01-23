@@ -38,6 +38,7 @@ Auberge is currently in development and not yet ready for proper release. Everyt
 
 ## Install (developer/test)
 ```bash
+# Requires PostgreSQL ... easy mode => https://postgresapp.com/
 $ brew install elixir # Only if you have Homebrew installed.
 
 $ git clone git@github.com:combsco/auberge.git
