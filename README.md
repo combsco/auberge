@@ -25,7 +25,7 @@ Written in [Elixir](http://elixir-lang.org/) and keeping state with [PostgreSQL]
 
 Some other shoutouts from my mix.exs file:
 
-- [Maru](https://github.com/elixir-maru/maru) - A API micro-framework inspired by grape
+- [Maru](https://github.com/elixir-maru/maru) - An API micro-framework inspired by grape
 - [Corsica](https://github.com/whatyouhide/corsica) - Because... CORS
 - [Credo](http://credo-ci.org/) - Static code analysis
 - [Distillery](https://github.com/bitwalker/distillery) - Helps to ship it!
