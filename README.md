@@ -9,11 +9,13 @@
 - [Status](#Status)
 - [Install](#install)
 - [Deployment](#Deployment)
-- [FAQ](../FAQ.md)
+- [FAQ](./FAQ.md)
 - [Contributing](#contributing)
 - [License](#license)
 
 ## What is Auberge?
+Auberge is a hotel management and booking system.
+
 *TODO*: Why did I make this project?
 
 ## Technology Stack
@@ -30,7 +32,7 @@ Some other shoutouts from my mix.exs file:
 ## Status
 Auberge is currently in development and not yet ready for proper release. Everything is subject to change without notice.
 
-What endpoints work as of the last PR? Customers, Properties, RoomRates, RoomTypes
+**What endpoints work as of the last PR?** Customers, Properties, RoomRates, RoomTypes
 
 ## Install (developer)
 ```bash
@@ -46,8 +48,14 @@ $ iex -S mix
 # run it
 $ mix run
 
-# If you want to start fresh with no seed data
-$ mix ecto.reset
+$ curl -XPOST http://localhost:3000/v1/customers \
+      -d first_name="Sean" \
+      -d last_name="Wood" \
+      -d phone_num="18452368176" \
+      -d email="SeanAWood@invalidemail.com"
+# You should get back some beautiful JSON.
+
+$ mix ecto.reset # If you want to start fresh with no seed data or to get a re-do, run ecto.setup afterwards for seeds.
 ```
 
 For releases there will just be a binary or docker file you can run no extra setup like above.
@@ -78,6 +86,13 @@ Found a bug, questions, discussion, or etc! [Open an issue](https://github.com/c
 Auberge follows the [Contributor Covenant](http://contributor-covenant.org/version/1/3/0/) Code of Conduct.
 
 ## License
-Apache 2.0 © 2017 Christopher Combs
+Copyright 2017 Christopher Combs
 
-See LICENSE file for full text.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the [LICENSE.md](./LICENSE.md) for the specific language governing permissions and
+limitations under the License.
